@@ -43,8 +43,6 @@ static void UpdateDiscord(const char * _dbging, const char *_state)
 		discordPresence.largeImageKey = "x64dbg";
 		discordPresence.largeImageText = "x64dbg";
 		Discord_UpdatePresence(&discordPresence);
-
-		Discord_UpdatePresence(&discordPresence);
 	}
 	else
 	{
