@@ -65,8 +65,7 @@ static void initDbg(CBTYPE cbType, void* callbackInfo)
 	};
 
 	auto filename = filepath_modify.c_str();
-	//_plugin_logprint(filename);
-    UpdateDiscord("Debugging ", filename);
+    	UpdateDiscord("Debugging ", filename);
 }
 
 static void stopDbg(CBTYPE cbType, void* callbackInfo)
@@ -95,7 +94,7 @@ bool pluginStop()
 	MENU_DISABLE
 };*/
 
-//StaRt
+//Start
 void pluginSetup()
 {
 	SetupDiscord();
