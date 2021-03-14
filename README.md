@@ -1,5 +1,5 @@
 # x64dbg DiscordRPC
-A quite simple plugin made in c++ to display when your using x64dbg and what binary you are debugging on discord. For example ![image](https://user-images.githubusercontent.com/68228472/111080893-590a9e00-8509-11eb-846e-db4b3678e4f6.png)
+A quite simple plugin to display when your using x64dbg and what binary you are debugging on discord. For example ![image](https://user-images.githubusercontent.com/68228472/111080893-590a9e00-8509-11eb-846e-db4b3678e4f6.png)
 
 ## How to use
 Using this plugin is pretty straightforward
