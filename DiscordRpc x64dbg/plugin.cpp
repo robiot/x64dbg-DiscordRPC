@@ -65,7 +65,7 @@ static void initDbg(CBTYPE cbType, void* callbackInfo)
 	};
 
 	auto filename = filepath_modify.c_str();
-    	UpdateDiscord("Debugging ", filename);
+    UpdateDiscord("Debugging ", filename);
 }
 
 static void stopDbg(CBTYPE cbType, void* callbackInfo)
