@@ -78,7 +78,7 @@ bool pluginInit(PLUG_INITSTRUCT* initStruct)
 {
 	//Initialize functions
     _plugin_registercallback(pluginHandle, CB_INITDEBUG, initDbg);
-	_plugin_registercallback(pluginHandle, CB_STOPDEBUG, stopDbg);
+    _plugin_registercallback(pluginHandle, CB_STOPDEBUG, stopDbg);
 
     return true;
 }
