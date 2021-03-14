@@ -19,7 +19,7 @@ If you would like to compile yourself then this is how
 1. Open the .sln file with **Visual Studio 2019** 
 2. Change debug to release and change `to x86 for x32dbg` and `to x64 for x64dbg` (make sure the project conifiguration type is set to **dynamic library (.dll)**)
 3. Compile!!!
-4. Drag the compiled dll into the plugins folder inside x64dbg and rename the file extension from **.dll** to `.dp32 for x32dbg` or ``.dp64 for x64dbg`
+4. Drag the compiled dll into the plugins folder inside x64dbg and rename the file extension from **.dll** to `.dp32 for x32dbg` or `.dp64 for x64dbg`
 5. Start x64dbg and check discord if it worked :)
   
 ## More Information  
