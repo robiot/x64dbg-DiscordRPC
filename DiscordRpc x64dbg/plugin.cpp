@@ -1,19 +1,14 @@
 #include "plugin.h"
 #include <Windows.h>
 
-#define MAX_SCAN_SIZE 0x1000
-
 #include <chrono>//.
 #include "DiscordSDK/include/discord_rpc.h"
 #include "DiscordSDK/include/discord_register.h"
+#include <condition_variable>
+#include <string>
 
 static bool gInit, gRPC = true;
-
-void _plugin_registercallback(
-	int pluginHandle, //plugin handle
-	CBTYPE cbType, //event type
-	CBPLUGIN cbPlugin //callback function
-);
+int ProcessId;
 
 void SetupDiscord()
 {
@@ -29,10 +24,10 @@ void SetupDiscord()
 	}
 }
 
-static void UpdateDiscord(const char *_state)
+static void UpdateDiscord(const char * _dbging, const char *_state)
 {
 	static int64_t StartTime = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-	std::string almost_real_state = "Debugging ";
+	std::string almost_real_state = _dbging;
 	almost_real_state += _state;
 	const char* real_state = almost_real_state.c_str();
 
@@ -57,51 +52,58 @@ static void UpdateDiscord(const char *_state)
 	}
 }
 
-static duint cbStackContains(int argc, duint* argv, void* userdata)
+static void initDbg(CBTYPE cbType, void* callbackInfo) 
 {
-    // Make sure the right amount of arguments was supplied
-    if (argc < 2)
-        return 0;
+	//Get the filename, this maybe could have been done easier but it works
+	PLUG_CB_INITDEBUG* i = (PLUG_CB_INITDEBUG*)callbackInfo;
+	const char* filepath = i->szFileName;
+	std::string filepath_modify(filepath);
+	const size_t last_slash_idx = filepath_modify.rfind('\\', filepath_modify.length());
+	if (std::string::npos != last_slash_idx)
+	{
+		filepath_modify = filepath_modify.substr(last_slash_idx + 1, filepath_modify.length() - last_slash_idx);
+	};
 
-    // Get the 'csp' (address to start scanning from).
-    auto csp = argv[0];
-    duint size;
-    auto base = DbgMemFindBaseAddr(csp, &size);
+	auto filename = filepath_modify.c_str();
+	//_plugin_logprint(filename);
+    UpdateDiscord("Debugging ", filename);
+}
 
-    // Make sure that the supplied address is in a valid memory range
-    if (!base)
-        return 0;
-
-    // Read MAX_SCAN_SIZE bytes from the stack to scan
-    duint data[MAX_SCAN_SIZE / sizeof(duint)];
-    auto sizeLeft = size - (csp - base);
-    auto readSize = sizeLeft >= sizeof(data) ? sizeof(data) : sizeLeft;
-    DbgMemRead(csp, data, readSize);
-
-    // Scan the bytes to see if it contains the requested value
-    for (duint i = 0; i * sizeof(duint) < readSize; i++)
-        if (data[i] == argv[1])
-            return true;
-    return false;
+static void stopDbg(CBTYPE cbType, void* callbackInfo)
+{
+	UpdateDiscord("Idling", "");
 }
 
 //Initialize plugin data
 bool pluginInit(PLUG_INITSTRUCT* initStruct)
 {
-    if (!_plugin_registerexprfunction(pluginHandle, "stack.contains", 2, cbStackContains, nullptr))
-        _plugin_logputs("[" PLUGIN_NAME "] Error registering the stack.contains expression function!");
-    return true; //Return false to cancel loading the plugin.
+	//Initialize functions
+    _plugin_registercallback(pluginHandle, CB_INITDEBUG, initDbg);
+	_plugin_registercallback(pluginHandle, CB_STOPDEBUG, stopDbg);
+
+    return true;
 }
 
-//Deinitialize plugin data (clearing menus optional).
+//Deinitialize plugin data
 bool pluginStop()
 {
     return true;
 }
 
-//Start
+//Enable/Disable may be added in the future
+/*enum MenuItems : int {
+	MENU_DISABLE
+};*/
+
+//StaRt
 void pluginSetup()
 {
 	SetupDiscord();
-	UpdateDiscord("niceCOCK.exe");
+	UpdateDiscord("Idling","");
+	_plugin_logprint("Discord Rpc Started\n");
+	//_plugin_menuaddentry(hMenu, MENU_OPTIONS, "&Options");
+	int hProfile = _plugin_menuadd(hMenu, "&Load Profile");
+
+	/*_plugin_menuaddseparator(hMenu);
+	_plugin_menuaddentry(hMenu, MENU_DISABLE, "&Disable RPC");*/
 }

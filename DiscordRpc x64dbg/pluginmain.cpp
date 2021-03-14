@@ -39,6 +39,5 @@ BOOL WINAPI DllMain(
     _In_ LPVOID    lpvReserved
 )
 {
-    //CreateThread(0, 0, (LPTHREAD_START_ROUTINE)main, 0, 0, 0);
     return TRUE;
 }
