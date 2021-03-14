@@ -10,7 +10,7 @@ Using this plugin is pretty straightforward
 
 3. Open the x32 folder and press "plugins" (if plugins folder doesen't exist just create it)
 4. Drag/copy the .dp32 file from the extracted folder to the plugins folder
-5. Repeat the same things as in the steps 3&4 but with the x64 folder instead
+5. Repeat the same things as in the steps 3&4 but with the x64 folder & .dp64 extension instead
 
 `Now start x64dbg and if you look at discord it should display that you are using x64dbg`
 
