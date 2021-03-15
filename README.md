@@ -28,5 +28,9 @@ This plugin was tested on a Windows10 x64 bit machine
 **Why?** I didn't find any discord rpc for x64dbg so i decided to make one :)
 
 **If you experience any error or have a suggestion please let me know**
-
+\
+\
+\
+[More x64dbg plugins](https://github.com/x64dbg/x64dbg/wiki/Plugins)
+ 
 *happy coding*
