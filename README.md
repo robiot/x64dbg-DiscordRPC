@@ -33,4 +33,4 @@ This plugin was tested on a Windows10 x64 bit machine
 \
 [More x64dbg plugins](https://github.com/x64dbg/x64dbg/wiki/Plugins)
  
-*happy coding*
+*-robi0t*
